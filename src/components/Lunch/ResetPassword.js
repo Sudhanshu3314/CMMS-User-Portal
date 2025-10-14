@@ -20,7 +20,7 @@ const ResetPassword = () => {
 
         try {
             setLoading(true);
-            const res = await fetch(`https://cmms-backends.vercel.app/auth/reset-password/${token}`, {
+            const res = await fetch(`${process.env.BACKEND_URL}/auth/reset-password/${token}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ newPassword: new_password }),
