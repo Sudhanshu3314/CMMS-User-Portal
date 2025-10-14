@@ -36,18 +36,24 @@ const Login = () => {
 
     const onResetFinish = async (values) => {
         try {
-            const res = await fetch("${process.env.BACKEND_URL}/auth/request-reset", {
+            const res = await fetch(`${process.env.BACKEND_URL}/auth/request-reset`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: values.reset_email }),
             });
 
-            const data = await res.json();
-            if (data.success) {
+            // Defensive: only parse JSON if there’s content
+            let data = {};
+            const text = await res.text();
+            if (text) {
+                data = JSON.parse(text);
+            }
+
+            if (res.ok && data.success) {
                 message.success("Password reset link sent to your email!");
                 setIsResetMode(false);
             } else {
-                message.error(data.message);
+                message.error(data.message || "Something went wrong while sending the reset email.");
             }
         } catch (err) {
             console.error(err);
