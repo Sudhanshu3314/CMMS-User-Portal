@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Button, Spin, message } from "antd";
-import { UserOutlined, MailOutlined } from "@ant-design/icons";
+import { Button, Spin, message, Upload } from "antd";
+import { UserOutlined, MailOutlined, CameraOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
 
 const Profile = () => {
@@ -11,6 +11,7 @@ const Profile = () => {
     const [profileData, setProfileData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [actionLoading, setActionLoading] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
     const handleUnauthorized = () => {
@@ -34,7 +35,9 @@ const Profile = () => {
             setProfileData({
                 name: profile?.name || "",
                 email: profile?.email || "",
-                membershipActive: profile?.membershipActive === "Active" ? "Active" : "Inactive",
+                photo: profile?.profilePhoto || "",
+                membershipActive:
+                    profile?.membershipActive === "Active" ? "Active" : "Inactive",
             });
         } catch (err) {
             console.error("Error fetching profile:", err);
@@ -65,7 +68,8 @@ const Profile = () => {
                 message.success(data.message);
                 setProfileData((prev) => ({
                     ...prev,
-                    membershipActive: data.membershipActive === "Active" ? "Active" : "Inactive",
+                    membershipActive:
+                        data.membershipActive === "Active" ? "Active" : "Inactive",
                 }));
             } else {
                 message.error(data.message || "Unable to perform action");
@@ -75,6 +79,35 @@ const Profile = () => {
             message.error("Error performing membership action");
         } finally {
             setActionLoading(false);
+        }
+    };
+
+    const handlePhotoUpload = async (file) => {
+        const formData = new FormData();
+        formData.append("photo", file);
+
+        try {
+            setUploading(true);
+            const res = await fetch(`${process.env.BACKEND_URL}/user/uploadphoto`, {
+                method: "POST",
+                headers: { Authorization: `Bearer ${user.token}` },
+                body: formData,
+            });
+
+            if (res.status === 401) return handleUnauthorized();
+
+            const data = await res.json();
+            if (data.success) {
+                message.success("Profile photo updated!");
+                setProfileData((prev) => ({ ...prev, photo: data.photoUrl }));
+            } else {
+                message.error(data.message || "Upload failed");
+            }
+        } catch (err) {
+            console.error("Upload error:", err);
+            message.error("Error uploading photo");
+        } finally {
+            setUploading(false);
         }
     };
 
@@ -107,17 +140,44 @@ const Profile = () => {
                 className={`w-full max-w-sm sm:max-w-md bg-white rounded-3xl shadow-xl overflow-hidden transform transition-all duration-700 hover:shadow-2xl ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                     }`}
             >
-                {/* Top gradient bar */}
                 <div className="h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 animate-gradient-x"></div>
 
                 <div className="p-5 sm:p-8 flex flex-col justify-center">
                     {/* Header */}
-                    <div className="text-center mb-5 sm:mb-8">
-                        <div className="relative inline-block mb-4">
-                            <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full p-4 sm:p-5 inline-flex items-center justify-center shadow-lg animate-bounce-slow">
-                                <UserOutlined className="text-2xl sm:text-4xl" />
+                    <div className="text-center mb-5 sm:mb-8 relative">
+                        <div className="relative inline-block mb-4 group"><Upload
+                            showUploadList={false}
+                            beforeUpload={(file) => {
+                                handlePhotoUpload(file);
+                                return false;
+                            }}
+                        >
+                            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-4 border-transparent bg-gradient-to-r from-blue-500 to-purple-600 p-[2px] animate-gradient-x">
+
+                                {profileData.photo ? (
+                                    <img
+                                        src={profileData.photo}
+                                        alt="Profile"
+                                        className="w-full h-full object-cover rounded-full"
+                                    />
+                                ) : (
+                                    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-full h-full flex items-center justify-center shadow-lg">
+                                        <UserOutlined className="text-3xl sm:text-4xl" />
+                                    </div>
+                                )}
+
+                                {/* Upload icon overlay */}
+
+                                <Button
+                                    loading={uploading}
+                                    icon={<CameraOutlined />}
+                                    className="!absolute bottom-0 right-0 !rounded-full !bg-white !shadow-md hover:!bg-blue-100 !text-blue-600"
+                                    size="small"
+                                />
                             </div>
+                        </Upload>
                         </div>
+
                         <h1 className="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-600 mb-1 sm:mb-2">
                             Your Profile
                         </h1>
@@ -134,7 +194,8 @@ const Profile = () => {
                             type="primary"
                             className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
                             style={{
-                                background: "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
+                                background:
+                                    "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
                                 boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)",
                             }}
                             onClick={() => handleMembershipAction("activate")}
@@ -147,7 +208,8 @@ const Profile = () => {
                             type="primary"
                             className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
                             style={{
-                                background: "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
+                                background:
+                                    "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
                                 boxShadow: "0 0 20px rgba(239, 68, 68, 0.6)",
                             }}
                             onClick={() => handleMembershipAction("deactivate")}
@@ -159,7 +221,10 @@ const Profile = () => {
                     {/* Membership Status */}
                     <p className="text-center text-sm sm:text-lg font-semibold py-2 text-gray-700 mb-4 sm:mb-6">
                         Membership Status:{" "}
-                        <span className={`font-bold ${isActive ? "text-green-600" : "text-red-600"}`}>
+                        <span
+                            className={`font-bold ${isActive ? "text-green-600" : "text-red-600"
+                                }`}
+                        >
                             {profileData.membershipActive}
                         </span>
                     </p>
@@ -192,11 +257,9 @@ const Profile = () => {
                     </div>
                 </div>
 
-                {/* Bottom gradient bar */}
                 <div className="h-2 bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 animate-gradient-x"></div>
             </div>
 
-            {/* Animations */}
             <style jsx="true">{`
                 @keyframes gradient-x {
                     0%, 100% {
@@ -209,17 +272,6 @@ const Profile = () => {
                 .animate-gradient-x {
                     background-size: 200% auto;
                     animation: gradient-x 3s ease infinite;
-                }
-                @keyframes bounce-slow {
-                    0%, 100% {
-                        transform: translateY(0);
-                    }
-                    50% {
-                        transform: translateY(-10px);
-                    }
-                }
-                .animate-bounce-slow {
-                    animation: bounce-slow 3s ease-in-out infinite;
                 }
             `}</style>
         </div>
