@@ -3,7 +3,6 @@ import { useAuth } from "../../context/AuthContext";
 import { Button, Spin, message, Upload } from "antd";
 import { UserOutlined, MailOutlined, CameraOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
-import { FAKE_USER } from "../../../utils/constants";
 
 const Profile = () => {
     const { user, logout } = useAuth();
@@ -36,7 +35,7 @@ const Profile = () => {
             setProfileData({
                 name: profile?.name || "",
                 email: profile?.email || "",
-                photo: profile?.profilePhoto || FAKE_USER,
+                photo: profile?.profilePhoto || "",
                 membershipActive:
                     profile?.membershipActive === "Active" ? "Active" : "Inactive",
             });
