@@ -34,6 +34,12 @@ const ErrorPage = () => {
     return (
         <div jsx="true" className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-orange-50 via-rose-100 to-red-200 text-center px-6">
             <div className="max-w-xl w-full">
+
+                <img
+                    src="https://i.pinimg.com/736x/ec/16/9f/ec169fc7cb49648cc7eace9c1acdd476.jpg"
+                    className="w-[450px]"
+                    alt="Error Illustration"
+                />
                 <h1 className="text-8xl font-bold text-red-600">{status}</h1>
                 <h2 className="text-3xl font-semibold mt-2 text-gray-800">{statusText}</h2>
                 <p className="text-lg text-gray-600 mt-4">{message}</p>
