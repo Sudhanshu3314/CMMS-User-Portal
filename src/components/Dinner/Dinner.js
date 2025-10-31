@@ -23,11 +23,14 @@ const Dinner = () => {
     const [isMounted, setIsMounted] = useState(false);
     const [showNextDay, setShowNextDay] = useState(false);
 
-    // Determine target date based on 4 PM cutoff
+    // Determine target date based on 4:30 PM cutoff
     useEffect(() => {
         const updateDateAndCutoff = () => {
             let now = dayjs().tz("Asia/Kolkata");
-            let dateForAttendance = now.hour() >= 16 ? now.add(1, "day") : now;
+            let dateForAttendance =
+                now.hour() > 16 || (now.hour() === 16 && now.minute() >= 30)
+                    ? now.add(1, "day")
+                    : now;
             setTargetDate(dateForAttendance.format("YYYY-MM-DD"));
             setNextDate(dateForAttendance.add(1, "day").format("YYYY-MM-DD"));
         };
@@ -149,7 +152,7 @@ const Dinner = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
                         <span className="text-indigo-500 text-lg sm:text-xl">⏰</span>
-                        <p className="text-indigo-600">Closes at {formattedDate}, 4:00 PM</p>
+                        <p className="text-indigo-600">Closes at {formattedDate}, 4:30 PM</p>
                     </div>
                 </div>
 
