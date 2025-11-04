@@ -145,37 +145,40 @@ const Profile = () => {
                 <div className="p-5 sm:p-8 flex flex-col justify-center">
                     {/* Header */}
                     <div className="text-center mb-5 sm:mb-8 relative">
-                        <div className="relative inline-block mb-4 group"><Upload
-                            showUploadList={false}
-                            beforeUpload={(file) => {
-                                handlePhotoUpload(file);
-                                return false;
-                            }}
-                        >
-                            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-4 border-transparent bg-gradient-to-r from-blue-500 to-purple-600 p-[2px] animate-gradient-x">
+                        <div className="relative inline-block mb-4 group">
+                            <Upload
+                                showUploadList={false}
+                                beforeUpload={(file) => {
+                                    const isLt1M = file.size / 1024 / 1024 < 1; // file size in MB
+                                    if (!isLt1M) {
+                                        message.error("File must be smaller than 1MB!");
+                                        return Upload.LIST_IGNORE; // prevents upload
+                                    }
+                                    handlePhotoUpload(file);
+                                    return false; // prevents default upload
+                                }}
+                            >
+                                <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full mx-auto border-4 border-transparent bg-gradient-to-r from-blue-500 to-purple-600 p-[2px] animate-gradient-x">
+                                    {profileData.photo ? (
+                                        <img
+                                            src={profileData.photo}
+                                            alt="Profile"
+                                            className="w-full h-full object-cover rounded-full"
+                                        />
+                                    ) : (
+                                        <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-full h-full flex items-center justify-center shadow-lg">
+                                            <UserOutlined className="text-3xl sm:text-4xl" />
+                                        </div>
+                                    )}
 
-                                {profileData.photo ? (
-                                    <img
-                                        src={profileData.photo}
-                                        alt="Profile"
-                                        className="w-full h-full object-cover rounded-full"
+                                    <Button
+                                        loading={uploading}
+                                        icon={<CameraOutlined />}
+                                        className="!absolute bottom-0 right-0 !rounded-full !bg-white !shadow-md hover:!bg-blue-100 !text-blue-600"
+                                        size="small"
                                     />
-                                ) : (
-                                    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full w-full h-full flex items-center justify-center shadow-lg">
-                                        <UserOutlined className="text-3xl sm:text-4xl" />
-                                    </div>
-                                )}
-
-                                {/* Upload icon overlay */}
-
-                                <Button
-                                    loading={uploading}
-                                    icon={<CameraOutlined />}
-                                    className="!absolute bottom-0 right-0 !rounded-full !bg-white !shadow-md hover:!bg-blue-100 !text-blue-600"
-                                    size="small"
-                                />
-                            </div>
-                        </Upload>
+                                </div>
+                            </Upload>
                         </div>
 
                         <h1 className="text-2xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-600 mb-1 sm:mb-2">
