@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Button, Spin, message, Upload } from "antd";
+import { Button, Spin, message, Upload, Tooltip } from "antd";
 import { UserOutlined, MailOutlined, CameraOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router";
+
 
 const Profile = () => {
     const { user, logout } = useAuth();
@@ -117,6 +118,37 @@ const Profile = () => {
         return () => setIsMounted(false);
     }, [user]);
 
+
+    // Helper: check if current time is within disabled intervals
+    // Helper: check if current time is within disabled intervals
+    const isWithinDisabledTime = () => {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const currentTime = hours * 60 + minutes; // convert to minutes since midnight
+
+        // Time windows in minutes
+        const morningStart = 9 * 60;          // 9:00 AM
+        const morningEnd = 14 * 60;           // 2:00 PM
+        const eveningStart = 16 * 60 + 30;    // 4:30 PM
+        const eveningEnd = 22 * 60;           // 10:00 PM
+
+        return (
+            (currentTime >= morningStart && currentTime <= morningEnd) ||
+            (currentTime >= eveningStart && currentTime <= eveningEnd)
+        );
+    };
+
+    // State to auto-refresh time restriction
+    const [isTimeDisabled, setIsTimeDisabled] = useState(isWithinDisabledTime());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIsTimeDisabled(isWithinDisabledTime());
+        }, 60 * 1000); // check every 1 minute
+        return () => clearInterval(interval);
+    }, []);
+
     if (loading || !profileData) {
         return (
             <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-orange-100 p-3 sm:p-4">
@@ -190,36 +222,54 @@ const Profile = () => {
                     </div>
 
                     {/* Membership Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center mb-4 sm:mb-6">
-                        <Button
-                            loading={actionLoading}
-                            disabled={isActive}
-                            type="primary"
-                            className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
-                            style={{
-                                background:
-                                    "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
-                                boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)",
-                            }}
-                            onClick={() => handleMembershipAction("activate")}
+                    <div className="flex flex-row gap-4 justify-center mb-4 sm:mb-6 mx-[10px]">
+                        <Tooltip
+                            title={
+                                isTimeDisabled
+                                    ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
+                                    : ""
+                            }
                         >
-                            Activate
-                        </Button>
-                        <Button
-                            loading={actionLoading}
-                            disabled={!isActive}
-                            type="primary"
-                            className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
-                            style={{
-                                background:
-                                    "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
-                                boxShadow: "0 0 20px rgba(239, 68, 68, 0.6)",
-                            }}
-                            onClick={() => handleMembershipAction("deactivate")}
+                            <Button
+                                loading={actionLoading}
+                                disabled={isActive || isTimeDisabled}
+                                type="primary"
+                                className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
+                                style={{
+                                    background:
+                                        "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
+                                    boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)",
+                                }}
+                                onClick={() => handleMembershipAction("activate")}
+                            >
+                                Activate
+                            </Button>
+                        </Tooltip>
+
+                        <Tooltip
+                            title={
+                                isTimeDisabled
+                                    ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
+                                    : ""
+                            }
                         >
-                            Deactivate
-                        </Button>
+                            <Button
+                                loading={actionLoading}
+                                disabled={!isActive || isTimeDisabled}
+                                type="primary"
+                                className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
+                                style={{
+                                    background:
+                                        "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
+                                    boxShadow: "0 0 20px rgba(239, 68, 68, 0.6)",
+                                }}
+                                onClick={() => handleMembershipAction("deactivate")}
+                            >
+                                Deactivate
+                            </Button>
+                        </Tooltip>
                     </div>
+
 
                     {/* Membership Status */}
                     <p className="text-center text-sm sm:text-lg font-semibold py-2 text-gray-700 mb-4 sm:mb-6">
