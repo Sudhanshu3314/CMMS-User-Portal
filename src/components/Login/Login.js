@@ -24,7 +24,7 @@ const Login = () => {
             if (data.success) {
                 login(data.user);
                 message.success("Login successful!");
-                navigate("/home"); // Redirect to Home
+                navigate("/profile"); // Redirect to Home
             } else {
                 message.error(data.message);
             }

@@ -10,7 +10,7 @@ export default function Navigation() {
     const navigate = useNavigate();
     const { logout } = useAuth();
     const Links = [
-        { name: "Home", path: "/home" },
+        { name: "Menu", path: "/home" },
         { name: "Profile", path: "/profile" },
         { name: "Lunch", path: "/lunch" },
         { name: "Dinner", path: "/dinner" },
