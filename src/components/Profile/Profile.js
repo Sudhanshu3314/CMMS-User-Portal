@@ -223,28 +223,20 @@ const Profile = () => {
 
                     {/* Membership Buttons */}
                     <div className="flex flex-row gap-4 justify-center mb-4 sm:mb-6 mx-[10px]">
-                        <Tooltip
-                            title={
-                                isTimeDisabled
-                                    ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
-                                    : ""
-                            }
-                        >
+                        
                             <Button
                                 loading={actionLoading}
-                                disabled={isActive || isTimeDisabled}
+                                disabled={isActive}
                                 type="primary"
                                 className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
                                 style={{
-                                    background:
-                                        "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
+                                    background: "linear-gradient(135deg, #16a34a, #22c55e, #4ade80)",
                                     boxShadow: "0 0 20px rgba(34, 197, 94, 0.6)",
                                 }}
                                 onClick={() => handleMembershipAction("activate")}
                             >
                                 Activate
                             </Button>
-                        </Tooltip>
 
                         <Tooltip
                             title={
