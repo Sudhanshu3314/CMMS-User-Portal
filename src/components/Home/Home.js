@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaUtensils, FaMoon, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import MenuShimmer from './MenuShimmer';
 
 const days = [
     'Sunday',
@@ -127,11 +128,7 @@ const Home = () => {
                 </header>
 
                 {/* Loading / Error */}
-                {loading && (
-                    <div className="text-center text-lg font-semibold">
-                        Loading menu 🍽️...
-                    </div>
-                )}
+                {loading && <MenuShimmer />}
 
                 {error && (
                     <div className="text-center text-red-600 font-semibold">
