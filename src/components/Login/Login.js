@@ -175,7 +175,7 @@ const Login = () => {
                                                     group
                                                 "
                                 >
-                                    <span>Login as Irregular & Multiple User</span>
+                                    <span>Non-member User Click Here</span>
                                     <ArrowRightOutlined className="text-sm group-hover:translate-x-1 transition-transform duration-300" />
                                 </Link>
                             </motion.div>
