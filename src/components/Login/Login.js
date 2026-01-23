@@ -160,25 +160,26 @@ const Login = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="
-                                                    inline-flex items-center gap-3
-                                                    px-6 py-3
-                                                    rounded-full
-                                                    bg-gradient-to-r from-indigo-500/10 to-purple-500/10
-                                                    text-indigo-700
-                                                    font-semibold
-                                                    border border-indigo-200
-                                                    shadow-sm
-                                                    hover:shadow-lg
-                                                    hover:border-indigo-300
-                                                    hover:bg-gradient-to-r hover:from-indigo-500/20 hover:to-purple-500/20
-                                                    transition-all duration-300
-                                                    group
-                                                "
+                                                inline-flex items-center gap-3
+                                                px-6 py-3
+                                                rounded-full
+                                                bg-gradient-to-r from-red-500/10 to-pink-500/10
+                                                text-red-600
+                                                font-semibold
+                                                border border-red-200
+                                                shadow-sm
+                                                hover:shadow-lg
+                                                hover:border-red-300
+                                                hover:bg-gradient-to-r hover:from-red-500/20 hover:to-pink-500/20
+                                                transition-all duration-300
+                                                group
+                                            "
                                 >
                                     <span>Non-member User Click Here</span>
-                                    <ArrowRightOutlined className="text-sm group-hover:translate-x-1 transition-transform duration-300" />
+                                    <ArrowRightOutlined className="text-sm text-red-600 group-hover:translate-x-1 transition-transform duration-300" />
                                 </Link>
                             </motion.div>
+
                         </Form.Item>
                     </Form>
                 ) : (
