@@ -142,70 +142,70 @@ const Dinner = () => {
         const formattedDate = dayjs(date).format("dddd, MMMM D YYYY");
         return (
             <div className="text-center">
-                <div className="mb-6 bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-indigo-100 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-400 to-purple-400"></div>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mb-2">
-                        <span className="text-indigo-500 text-xl sm:text-2xl">📅</span>
-                        <p className="text-lg sm:text-2xl font-bold text-indigo-800 break-words">
+                <div className="mb-4 sm:mb-6 bg-white rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 shadow-sm border border-indigo-100 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-0.5 sm:h-1 bg-gradient-to-r from-indigo-400 to-purple-400"></div>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 md:gap-3 mb-1 sm:mb-2">
+                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl">📅</span>
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold text-indigo-800 break-words px-2">
                             {formattedDate}
                         </p>
                     </div>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
-                        <span className="text-indigo-500 text-lg sm:text-xl">⏰</span>
-                        <p className="text-indigo-600">Closes at {formattedDate}, 4:30 PM</p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 md:gap-3 text-xs sm:text-sm md:text-base">
+                        <span className="text-sm sm:text-base md:text-lg lg:text-xl">⏰</span>
+                        <p className="text-indigo-600 px-2">Closes at {formattedDate}, 4:30 PM</p>
                     </div>
                 </div>
 
                 {attendance?.status && attendance.status !== "no response" ? (
-                    <div className="bg-green-50 rounded-xl p-4 sm:p-6 border border-green-200 animate-fade-in-up">
-                        <p className="text-green-700 text-base sm:text-lg font-medium">
+                    <div className="bg-green-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 border border-green-200 animate-fade-in-up">
+                        <p className="text-green-700 text-sm sm:text-base md:text-lg lg:text-xl font-medium px-2">
                             Your response for {formattedDate} has been recorded
                         </p>
-                        <p className="text-green-700 mt-2">
+                        <p className="text-green-700 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base px-2">
                             You chose:{" "}
-                            <Tag color={attendance.status === "yes" ? "green" : "red"} className="text-sm sm:text-base px-3 py-1">
+                            <Tag color={attendance.status === "yes" ? "green" : "red"} className="text-xs sm:text-sm md:text-base lg:text-lg px-2 sm:px-3 py-0.5 sm:py-1">
                                 {attendance.status === "yes" ? "Having Dinner" : "Skipping Dinner"}
                             </Tag>
                         </p>
                     </div>
                 ) : (
-                    <div className="space-y-6">
-                        <div className="bg-indigo-50 rounded-xl p-4 sm:p-6 border border-indigo-200 animate-fade-in-up">
-                            <div className="flex flex-col sm:flex-row items-center justify-center gap-2">
-                                <span className="text-indigo-500 text-xl sm:text-2xl">⚠️</span>
-                                <h3 className="text-base sm:text-lg font-bold text-indigo-700">
+                    <div className="space-y-4 sm:space-y-6">
+                        <div className="bg-indigo-50 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 border border-indigo-200 animate-fade-in-up">
+                            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+                                <span className="text-lg sm:text-xl md:text-2xl">⚠️</span>
+                                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-indigo-700 px-2">
                                     Time to decide!
                                 </h3>
                             </div>
-                            <p className="text-indigo-600 mt-2 text-sm sm:text-base">
-                                Will you be joining us for dinner on <br />
+                            <p className="text-indigo-600 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base lg:text-lg px-2">
+                                Will you be joining us for dinner on <br className="hidden sm:block" />
                                 <b>{formattedDate}</b>?
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 px-2 sm:px-0">
                             <Button
-                                className="!h-24 !w-full sm:!w-56 !py-4 !px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-left group"
+                                className="!h-16 sm:!h-20 md:!h-24 lg:!h-28 !w-full !py-3 sm:!py-4 md:!py-5 !px-4 sm:!px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-left group"
                                 onClick={() => submitAttendance("yes")}
                                 loading={loading}
                             >
-                                <span className="text-2xl sm:text-3xl mb-2 transition-transform duration-300 group-hover:scale-110">
+                                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-1 sm:mb-2 transition-transform duration-300 group-hover:scale-110">
                                     🍽️
                                 </span>
-                                <span className="font-bold text-sm sm:text-lg transition-all duration-300">
+                                <span className="font-bold text-xs sm:text-sm md:text-lg lg:text-xl transition-all duration-300">
                                     Yes, I'm hungry!
                                 </span>
                             </Button>
 
                             <Button
-                                className="!h-24 !w-full sm:!w-56 !py-4 !px-6 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-right group"
+                                className="!h-16 sm:!h-20 md:!h-24 lg:!h-28 !w-full !py-3 sm:!py-4 md:!py-5 !px-4 sm:!px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-right group"
                                 onClick={() => submitAttendance("no")}
                                 loading={loading}
                             >
-                                <span className="text-2xl sm:text-3xl mb-2 transition-transform duration-300 group-hover:scale-110">
+                                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-1 sm:mb-2 transition-transform duration-300 group-hover:scale-110">
                                     🚫
                                 </span>
-                                <span className="font-bold text-sm sm:text-lg transition-all duration-300">
+                                <span className="font-bold text-xs sm:text-sm md:text-lg lg:text-xl transition-all duration-300">
                                     No, thanks!
                                 </span>
                             </Button>
@@ -218,9 +218,9 @@ const Dinner = () => {
 
     if (loading) {
         return (
-            <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 p-4">
+            <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 p-3 sm:p-4 md:p-6">
                 <Spin size="large" />
-                <p className="mt-4 text-indigo-700 text-base sm:text-lg font-medium animate-pulse text-center">
+                <p className="mt-3 sm:mt-4 text-indigo-700 text-sm sm:text-base md:text-lg lg:text-xl font-medium animate-pulse text-center px-4">
                     Loading your Dinner attendance...
                 </p>
             </div>
@@ -230,38 +230,38 @@ const Dinner = () => {
     const selectedDate = showNextDay ? nextDate : targetDate;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 flex items-center justify-center p-3 sm:p-6 lg:p-8">
-            <div className={`w-full max-w-sm sm:max-w-lg mx-auto bg-white rounded-3xl shadow-xl overflow-hidden transform transition-all duration-700 hover:shadow-2xl ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 flex items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
+            <div className={`w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden transform transition-all duration-700 hover:shadow-2xl ${isMounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
 
                 {/* Header */}
-                <div className="h-14 sm:h-16 bg-gradient-to-r from-indigo-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
-                    <div className="relative z-10 flex items-center space-x-2 sm:space-x-4">
-                        <div className="text-2xl sm:text-4xl animate-bounce">🍽️</div>
-                        <h1 className="text-lg sm:text-2xl font-bold text-white">Dinner Attendance</h1>
-                        <div className="text-2xl sm:text-4xl animate-bounce" style={{ animationDelay: '0.5s' }}>🍷</div>
+                <div className="h-12 sm:h-14 md:h-16 lg:h-18 bg-gradient-to-r from-indigo-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
+                    <div className="relative z-10 flex items-center space-x-1.5 sm:space-x-2 md:space-x-4">
+                        <div className="text-2xl sm:text-3xl md:text-4xl animate-bounce">🍽️</div>
+                        <h1 className="text-sm sm:text-lg md:text-2xl lg:text-3xl font-bold text-white">Dinner Attendance</h1>
+                        <div className="text-2xl sm:text-3xl md:text-4xl animate-bounce" style={{ animationDelay: '0.5s' }}>🍷</div>
                     </div>
                 </div>
 
                 {/* Body */}
-                <div className="p-4 sm:p-8 bg-gradient-to-b from-indigo-50 to-white">
+                <div className="p-3 sm:p-4 md:p-6 lg:p-8 bg-gradient-to-b from-indigo-50 to-white">
                     {profile && (
-                        <div className="space-y-4 mb-6 sm:mb-8">
-                            <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-indigo-100 flex items-center space-x-3 sm:space-x-4 animate-fade-in-left">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
-                                    <UserOutlined className="text-lg sm:text-xl" />
+                        <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6 md:mb-8">
+                            <div className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl p-2.5 sm:p-3 md:p-4 shadow-sm border border-indigo-100 flex items-center space-x-2 sm:space-x-3 md:space-x-4 animate-fade-in-left">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                                    <UserOutlined className="text-sm sm:text-base md:text-lg lg:text-xl" />
                                 </div>
-                                <div>
-                                    <p className="text-[10px] sm:text-xs text-indigo-600 uppercase tracking-wider font-bold">Full Name</p>
-                                    <p className="font-medium text-sm sm:text-base text-gray-800">{profile.name}</p>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-[9px] sm:text-[10px] md:text-xs text-indigo-600 uppercase tracking-wider font-bold">Full Name</p>
+                                    <p className="font-medium text-xs sm:text-sm md:text-base lg:text-lg text-gray-800 break-words">{profile.name}</p>
                                 </div>
                             </div>
-                            <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-indigo-100 flex items-center space-x-3 sm:space-x-4 animate-fade-in-left">
-                                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
-                                    <MailOutlined className="text-lg sm:text-xl" />
+                            <div className="bg-white rounded-lg sm:rounded-xl md:rounded-2xl p-2.5 sm:p-3 md:p-4 shadow-sm border border-indigo-100 flex items-center space-x-2 sm:space-x-3 md:space-x-4 animate-fade-in-left">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                                    <MailOutlined className="text-sm sm:text-base md:text-lg lg:text-xl" />
                                 </div>
-                                <div>
-                                    <p className="text-[10px] sm:text-xs text-indigo-600 uppercase tracking-wider font-bold">Email Address</p>
-                                    <p className="font-medium text-sm sm:text-base text-gray-800 truncate max-w-[160px] sm:max-w-none">{profile.email}</p>
+                                <div className="flex-1 min-w-0 overflow-hidden">
+                                    <p className="text-[9px] sm:text-[10px] md:text-xs text-indigo-600 uppercase tracking-wider font-bold">Email Address</p>
+                                    <p className="font-medium text-xs sm:text-sm md:text-base lg:text-lg text-gray-800 truncate">{profile.email}</p>
                                 </div>
                             </div>
                         </div>
@@ -281,23 +281,23 @@ const Dinner = () => {
                     </AnimatePresence>
 
                     {/* Toggle Button */}
-                    <div className="flex justify-center mt-8 sm:mt-10">
+                    <div className="flex justify-center mt-6 sm:mt-8 md:mt-10">
                         <motion.button
                             whileHover={{ scale: 1.08, boxShadow: "0px 0px 20px rgba(128, 0, 128, 0.5)" }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 300, damping: 15 }}
                             onClick={() => setShowNextDay((prev) => !prev)}
-                            className="relative flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-2 sm:py-3 rounded-2xl text-white font-semibold overflow-hidden shadow-lg bg-gradient-to-r from-indigo-500 via-purple-600 to-blue-500 focus:outline-none text-sm sm:text-base"
+                            className="relative flex items-center justify-center gap-1.5 sm:gap-2 md:gap-3 px-4 sm:px-6 md:px-8 py-1.5 sm:py-2 md:py-3 rounded-xl sm:rounded-2xl text-white font-semibold overflow-hidden shadow-lg bg-gradient-to-r from-indigo-500 via-purple-600 to-blue-500 focus:outline-none text-xs sm:text-sm md:text-base lg:text-lg"
                         >
                             {showNextDay ? (
                                 <>
-                                    <ArrowLeftOutlined className="text-base sm:text-2xl" />
-                                    <span className="relative z-10 font-bold text-sm sm:text-xl">Previous Day</span>
+                                    <ArrowLeftOutlined className="text-sm sm:text-base md:text-xl lg:text-2xl" />
+                                    <span className="relative z-10 font-bold">Previous Day</span>
                                 </>
                             ) : (
                                 <>
-                                    <span className="relative z-10 font-bold text-sm sm:text-xl">Next Day</span>
-                                    <ArrowRightOutlined className="text-base sm:text-2xl" />
+                                    <span className="relative z-10 font-bold">Next Day</span>
+                                    <ArrowRightOutlined className="text-sm sm:text-base md:text-xl lg:text-2xl" />
                                 </>
                             )}
                         </motion.button>
@@ -305,11 +305,11 @@ const Dinner = () => {
                 </div>
 
                 {/* Footer */}
-                <div className="h-14 sm:h-16 bg-gradient-to-r from-indigo-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
-                    <div className="relative z-10 flex items-center space-x-2 sm:space-x-3">
-                        <span className="text-white text-lg sm:text-2xl animate-pulse">🍲</span>
-                        <span className="text-white text-lg sm:text-2xl animate-pulse" style={{ animationDelay: '0.3s' }}>🥘</span>
-                        <span className="text-white text-lg sm:text-2xl animate-pulse" style={{ animationDelay: '0.6s' }}>🍝</span>
+                <div className="h-12 sm:h-14 md:h-16 lg:h-18 bg-gradient-to-r from-indigo-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
+                    <div className="relative z-10 flex items-center space-x-1 sm:space-x-2 md:space-x-3">
+                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl animate-pulse">🍲</span>
+                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl animate-pulse" style={{ animationDelay: '0.3s' }}>🥘</span>
+                        <span className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl animate-pulse" style={{ animationDelay: '0.6s' }}>🍝</span>
                     </div>
                 </div>
             </div>

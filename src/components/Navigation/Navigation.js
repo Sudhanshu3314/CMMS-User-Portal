@@ -72,7 +72,7 @@ export default function Navigation() {
                 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
             >
                 <div className="flex items-center justify-between px-5 py-4 border-b border-[#444466]">
-                    <span className="text-xl font-semibold">Menu</span>
+                    <span className="text-xl font-semibold">Navigation</span>
                     <button onClick={() => setIsOpen(false)}>
                         <X size={24} className="hover:text-red-400 transition-colors" />
                     </button>
