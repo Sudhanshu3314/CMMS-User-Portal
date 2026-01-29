@@ -223,10 +223,20 @@ const Profile = () => {
 
                     {/* Membership Buttons */}
                     <div className="flex flex-row gap-4 justify-center mb-4 sm:mb-6 mx-[10px]">
-                        
+
+                        {/* ACTIVATE */}
+                        <Tooltip
+                            title={
+                                isTimeDisabled
+                                    ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
+                                    : isActive
+                                        ? "Membership is already active"
+                                        : ""
+                            }
+                        >
                             <Button
                                 loading={actionLoading}
-                                disabled={isActive}
+                                disabled={isActive || isTimeDisabled}
                                 type="primary"
                                 className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
                                 style={{
@@ -237,12 +247,16 @@ const Profile = () => {
                             >
                                 Activate
                             </Button>
+                        </Tooltip>
 
+                        {/* DEACTIVATE */}
                         <Tooltip
                             title={
                                 isTimeDisabled
                                     ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
-                                    : ""
+                                    : !isActive
+                                        ? "Membership is already inactive"
+                                        : ""
                             }
                         >
                             <Button
@@ -251,8 +265,7 @@ const Profile = () => {
                                 type="primary"
                                 className="!h-10 sm:!h-12 !rounded-2xl !px-4 sm:!px-6 !font-semibold !text-white shadow-lg w-full sm:w-auto text-sm sm:text-base"
                                 style={{
-                                    background:
-                                        "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
+                                    background: "linear-gradient(135deg, #ef4444, #dc2626, #b91c1c)",
                                     boxShadow: "0 0 20px rgba(239, 68, 68, 0.6)",
                                 }}
                                 onClick={() => handleMembershipAction("deactivate")}
@@ -260,6 +273,7 @@ const Profile = () => {
                                 Deactivate
                             </Button>
                         </Tooltip>
+
                     </div>
 
 
