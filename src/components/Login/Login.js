@@ -426,7 +426,7 @@ const Login = () => {
                                             whileTap={{ scale: 0.97 }}
                                         >
                                             <Link
-                                                to={"https://igidr-cmmg.netlify.app/"}
+                                                to={process.env.MULTIPLE_USER_FRONTEND}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="
