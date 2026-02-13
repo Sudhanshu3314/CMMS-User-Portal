@@ -177,28 +177,16 @@ const Dinner = () => {
                                     Time to decide!
                                 </h3>
                             </div>
-                            <p className="text-indigo-600 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base lg:text-lg px-2">
+                            <p className="text-indigo-600 mt-1 sm:mt-2 text-xs sm:text-sm md:text-base lg:text-lg px-2 text-center">
                                 Will you be joining us for dinner on <br className="hidden sm:block" />
                                 <b>{formattedDate}</b>?
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 md:gap-5 px-2 sm:px-0">
+                        {/* Centered "No, thanks!" button */}
+                        <div className="flex justify-center px-2 sm:px-0">
                             <Button
-                                className="!h-16 sm:!h-20 md:!h-24 lg:!h-28 !w-full !py-3 sm:!py-4 md:!py-5 !px-4 sm:!px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-left group"
-                                onClick={() => submitAttendance("yes")}
-                                loading={loading}
-                            >
-                                <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mb-1 sm:mb-2 transition-transform duration-300 group-hover:scale-110">
-                                    🍽️
-                                </span>
-                                <span className="font-bold text-xs sm:text-sm md:text-lg lg:text-xl transition-all duration-300">
-                                    Yes, I'm hungry!
-                                </span>
-                            </Button>
-
-                            <Button
-                                className="!h-16 sm:!h-20 md:!h-24 lg:!h-28 !w-full !py-3 sm:!py-4 md:!py-5 !px-4 sm:!px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in-right group"
+                                className="!h-16 sm:!h-20 md:!h-24 lg:!h-28 !w-full max-w-xs !py-3 sm:!py-4 md:!py-5 !px-4 sm:!px-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-amber-500 text-white border-0 shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105 hover:-translate-y-1 flex flex-col items-center justify-center animate-fade-in group"
                                 onClick={() => submitAttendance("no")}
                                 loading={loading}
                             >
@@ -212,6 +200,7 @@ const Dinner = () => {
                         </div>
                     </div>
                 )}
+
             </div>
         );
     };
