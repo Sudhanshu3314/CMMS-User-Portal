@@ -472,7 +472,7 @@ const Profile = () => {
                             <Tooltip
                                 title={
                                     isTimeDisabled
-                                        ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
+                                        ? "Membership changes are disabled between 9:00 am to 2:00 pm and 4:30 pm to 10:00 pm"
                                         : isActive
                                             ? "Membership is already active"
                                             : ""
@@ -509,7 +509,7 @@ const Profile = () => {
                             <Tooltip
                                 title={
                                     isTimeDisabled
-                                        ? "Membership changes are disabled between 9 AM–2 PM and 4:30 PM–10 PM"
+                                        ? "Membership changes are disabled between 9:00 am to 2:00 pm and 4:30 pm to 10:00 pm"
                                         : !isActive
                                             ? "Membership is already inactive"
                                             : ""
